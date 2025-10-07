@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Digital Tikka - Social Media Branding</title>
+
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts & icons -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -14,29 +18,42 @@
       --white-cream: #F8F0E3;
       --black: #121212;
     }
-    body, html {
+
+    /* Basic page */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
       font-family: 'Poppins', sans-serif;
-      scroll-behavior: smooth;
       background-color: var(--white-cream);
-      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden; /* prevent horizontal scroll */
     }
+
+    /* Use a CSS var for viewport height to avoid mobile 100vh issues.
+       JS below will set --vh properly on mobile. */
     .slide-container {
       scroll-snap-type: y mandatory;
-      overflow-y: scroll;
-      height: 100vh;
+      overflow-y: auto;
+      height: calc(var(--vh, 1vh) * 100);
+      -webkit-overflow-scrolling: touch;
     }
+
     .slide {
       scroll-snap-align: start;
-      min-height: 100vh;
+      min-height: calc(var(--vh, 1vh) * 100);
       height: auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 1.5rem;
+      padding: 1.25rem;
       position: relative;
-      overflow: hidden;
+      box-sizing: border-box;
     }
+
+    /* Brand helpers */
     .bg-gradient-brand {
       background: linear-gradient(135deg, var(--dark-red), #4a0601);
     }
@@ -52,22 +69,20 @@
     .bg-white-cream { background-color: var(--white-cream); }
     .text-white-cream { color: var(--white-cream); }
 
-    h1, h2, h3 {
-      font-family: 'Playfair Display', serif;
-    }
+    h1,h2,h3 { font-family: 'Playfair Display', serif; }
+
+    /* Card style */
     .card {
       background: white;
-      border-radius: 1.5rem;
-      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05),
-                  0 4px 6px -4px rgb(0 0 0 / 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 1px solid #f0f0f0;
+      border-radius: 1rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid rgba(0,0,0,0.03);
       width: 100%;
     }
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
-    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.10); }
+
+    /* Nav dots */
     .nav-dots {
       position: fixed;
       right: 20px;
@@ -75,22 +90,25 @@
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      z-index: 50;
+      gap: 14px;
+      z-index: 60;
+      pointer-events: auto;
     }
     .dot {
       width: 12px;
       height: 12px;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(0,0,0,0.18);
       border-radius: 50%;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       border: 2px solid transparent;
+      display: inline-block;
     }
     .dot.active {
       background: var(--dark-red);
-      transform: scale(1.2);
+      transform: scale(1.18);
       border-color: var(--white-cream);
     }
+
     .arrow-down {
       position: absolute;
       bottom: 20px;
@@ -99,127 +117,369 @@
       animation: bounce 2s infinite;
     }
     @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-      40% { transform: translateX(-50%) translateY(-20px); }
-      60% { transform: translateX(-50%) translateY(-10px); }
+      0%,20%,50%,80%,100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-16px); }
+      60% { transform: translateX(-50%) translateY(-8px); }
     }
 
-    /* Mobile fixes */
+    /* Smaller tweaks */
+    .small-clip { clip-path: inset(0 0 0 0 round 12px); }
+
+    /* Mobile adjustments */
     @media (max-width: 640px) {
-      .nav-dots {
-        right: 10px;
-        gap: 10px;
-      }
-      .dot {
-        width: 10px;
-        height: 10px;
-      }
+      .nav-dots { right: 10px; gap: 10px; }
+      .dot { width: 10px; height: 10px; }
+      .card { border-radius: 0.75rem; }
+      .arrow-down { bottom: 14px; }
+      .slide { padding: 1rem; }
     }
   </style>
 </head>
 <body class="bg-white-cream">
 
   <!-- Navigation dots -->
-  <div class="nav-dots">
-    <a href="#slide1" class="dot active"></a>
-    <a href="#slide2" class="dot"></a>
-    <a href="#slide3" class="dot"></a>
-    <a href="#slide4" class="dot"></a>
-    <a href="#slide5" class="dot"></a>
-    <a href="#slide6" class="dot"></a>
-    <a href="#slide7" class="dot"></a>
-    <a href="#slide8" class="dot"></a>
+  <div class="nav-dots" aria-hidden="false">
+    <a href="#slide1" class="dot active" aria-label="Go to slide 1"></a>
+    <a href="#slide2" class="dot" aria-label="Go to slide 2"></a>
+    <a href="#slide3" class="dot" aria-label="Go to slide 3"></a>
+    <a href="#slide4" class="dot" aria-label="Go to slide 4"></a>
+    <a href="#slide5" class="dot" aria-label="Go to slide 5"></a>
+    <a href="#slide6" class="dot" aria-label="Go to slide 6"></a>
+    <a href="#slide7" class="dot" aria-label="Go to slide 7"></a>
+    <a href="#slide8" class="dot" aria-label="Go to slide 8"></a>
   </div>
 
-  <div class="slide-container">
+  <!-- Slides container -->
+  <div class="slide-container" id="slides" tabindex="0">
+
     <!-- Slide 1: Title -->
     <section id="slide1" class="slide bg-black text-white text-center">
-      <h1 class="text-4xl sm:text-6xl md:text-8xl font-bold tracking-tight">Digital Tikka</h1>
-      <p class="text-lg sm:text-xl md:text-3xl mt-2 italic opacity-90">"Adding the masala to your media"</p>
-      <p class="mt-6 sm:mt-8 max-w-2xl text-base sm:text-lg opacity-80">
-        A proposal on how your businesses can increase visibility and achieve measurable growth by leveraging social media marketing.
-      </p>
-      <div class="arrow-down text-white text-3xl"><i class="fas fa-chevron-down"></i></div>
+      <div class="max-w-4xl w-full px-2">
+        <h1 class="text-4xl sm:text-6xl md:text-8xl font-bold tracking-tight">Digital Tikka</h1>
+        <p class="text-base sm:text-lg md:text-2xl mt-2 italic opacity-90">"Adding the masala to your media"</p>
+        <p class="mt-6 sm:mt-8 max-w-2xl text-sm sm:text-base md:text-lg opacity-80 mx-auto">A proposal on how your businesses can increase visibility and achieve measurable growth by leveraging social media marketing.</p>
+      </div>
+      <div class="arrow-down text-white text-3xl" aria-hidden="true"><i class="fas fa-chevron-down"></i></div>
     </section>
 
     <!-- Slide 2: The Opportunity -->
     <section id="slide2" class="slide bg-white-cream">
-      <div class="text-center">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-dark-red mb-4">Your Customers Are Waiting Online</h2>
-        <p class="text-base sm:text-lg md:text-xl text-black max-w-3xl mx-auto">
-          In today's digital-first India, an online presence isn't just an option—it's your biggest opportunity.
-        </p>
+      <div class="max-w-6xl w-full">
+        <div class="text-center px-4">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-dark-red mb-4">Your Customers Are Waiting Online</h2>
+          <p class="text-sm sm:text-base md:text-lg text-black max-w-3xl mx-auto">In today's digital-first India, an online presence isn't just an option—it's your biggest opportunity. We help you connect with your audience through content, creativity, and strategy, tailored just for you.</p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
+          <div class="p-4 text-center">
+            <i class="fas fa-users text-4xl sm:text-5xl text-dark-red mb-4"></i>
+            <h3 class="text-lg sm:text-xl font-bold text-black">Reach New Customers</h3>
+            <p class="text-sm sm:text-base text-black mt-2">Connect with a wider audience beyond your physical location.</p>
+          </div>
+          <div class="p-4 text-center">
+            <i class="fas fa-comments text-4xl sm:text-5xl text-dark-red mb-4"></i>
+            <h3 class="text-lg sm:text-xl font-bold text-black">Build Your Community</h3>
+            <p class="text-sm sm:text-base text-black mt-2">Create a loyal following that trusts and advocates for your brand.</p>
+          </div>
+          <div class="p-4 text-center">
+            <i class="fas fa-chart-line text-4xl sm:text-5xl text-dark-red mb-4"></i>
+            <h3 class="text-lg sm:text-xl font-bold text-black">Drive Real Results</h3>
+            <p class="text-sm sm:text-base text-black mt-2">Turn online engagement into tangible business growth and sales.</p>
+          </div>
+        </div>
       </div>
-      <div class="mt-8 sm:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full max-w-6xl">
-        <div class="p-4 sm:p-6 text-center">
-          <i class="fas fa-users text-4xl sm:text-5xl text-dark-red mb-4"></i>
-          <h3 class="text-xl sm:text-2xl font-bold text-black">Reach New Customers</h3>
-          <p class="text-black mt-2">Connect with a wider audience beyond your physical location.</p>
-        </div>
-        <div class="p-4 sm:p-6 text-center">
-          <i class="fas fa-comments text-4xl sm:text-5xl text-dark-red mb-4"></i>
-          <h3 class="text-xl sm:text-2xl font-bold text-black">Build Your Community</h3>
-          <p class="text-black mt-2">Create a loyal following that trusts and advocates for your brand.</p>
-        </div>
-        <div class="p-4 sm:p-6 text-center">
-          <i class="fas fa-chart-line text-4xl sm:text-5xl text-dark-red mb-4"></i>
-          <h3 class="text-xl sm:text-2xl font-bold text-black">Drive Real Results</h3>
-          <p class="text-black mt-2">Turn online engagement into tangible business growth and sales.</p>
-        </div>
-      </div>
-      <div class="arrow-down text-black text-3xl"><i class="fas fa-chevron-down"></i></div>
+      <div class="arrow-down text-black text-3xl" aria-hidden="true"><i class="fas fa-chevron-down"></i></div>
     </section>
 
-    <!-- ✅ Other slides remain same (they already use responsive grids & typography) -->
+    <!-- Slide 3: Our Mission & Services -->
+    <section id="slide3" class="slide bg-white">
+      <div class="max-w-6xl w-full px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div class="text-center lg:text-left">
+            <h3 class="text-xl sm:text-2xl font-semibold text-dark-red">Our Mission</h3>
+            <p class="text-2xl sm:text-3xl md:text-4xl font-bold text-black mt-2">"To make your brand stand out online with measurable results."</p>
+          </div>
+          <div>
+            <h3 class="text-lg sm:text-xl font-semibold text-dark-red mb-4 text-center lg:text-left">Our Core Services</h3>
+            <div class="space-y-4">
+              <div class="card p-4 sm:p-6 flex items-start gap-4 small-clip">
+                <i class="fas fa-pen-ruler text-3xl sm:text-4xl text-dark-red w-12 text-center"></i>
+                <div>
+                  <h4 class="text-base sm:text-lg font-bold text-black">Content Creation</h4>
+                  <p class="text-sm sm:text-base text-black">Engaging posts, dynamic reels, eye-catching graphics, and strategic event campaigns.</p>
+                </div>
+              </div>
 
-    <!-- Slide 8: Contact -->
+              <div class="card p-4 sm:p-6 flex items-start gap-4 small-clip">
+                <i class="fas fa-bullhorn text-3xl sm:text-4xl text-dark-red w-12 text-center"></i>
+                <div>
+                  <h4 class="text-base sm:text-lg font-bold text-black">Social Media Management</h4>
+                  <p class="text-sm sm:text-base text-black">Consistent posting, active engagement, and dedicated community building.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-down text-black text-3xl" aria-hidden="true"><i class="fas fa-chevron-down"></i></div>
+    </section>
+
+    <!-- Slide 4: Social Media Packages -->
+    <section id="slide4" class="slide bg-white-cream">
+      <div class="max-w-7xl w-full px-4">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-black text-center mb-8">Social Media Packages</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Tikka Bite -->
+          <div class="card p-6 flex flex-col text-center border-t-4 border-gray-300 h-full">
+            <h3 class="text-2xl font-bold text-black">Tikka Bite</h3>
+            <p class="text-sm sm:text-base text-gray-500 italic mt-1">Bite-sized content. Big-time impact.</p>
+            <p class="text-3xl sm:text-4xl font-bold text-dark-red my-4">₹5,000 <span class="text-sm font-normal text-gray-500">/month</span></p>
+            <p class="text-sm text-black mb-4">For small businesses starting their online journey.</p>
+            <ul class="text-left text-sm sm:text-base space-y-2 mb-6 flex-grow">
+              <li class="flex items-start"><i class="fas fa-check-circle text-gray-400 mt-1 mr-3"></i> 10–12 posts/month</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-gray-400 mt-1 mr-3"></i> 3–4 stories per week</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-gray-400 mt-1 mr-3"></i> Basic community engagement</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-gray-400 mt-1 mr-3"></i> Monthly performance report</li>
+            </ul>
+            <button onclick="document.getElementById('slide8').scrollIntoView({behavior:'smooth'})" class="mt-auto w-full bg-gray-800 text-white font-semibold py-2 rounded-md hover:bg-black transition-colors">Choose Plan</button>
+          </div>
+
+          <!-- Spice Mix -->
+          <div class="card p-6 flex flex-col text-center border-t-4 border-dark-red transform lg:scale-105 h-full relative">
+            <span class="absolute top-0 right-0 bg-dark-red text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">POPULAR</span>
+            <h3 class="text-2xl font-bold text-black">Spice Mix</h3>
+            <p class="text-sm sm:text-base text-gray-500 italic mt-1">The secret spice behind your social.</p>
+            <p class="text-3xl sm:text-4xl font-bold text-dark-red my-4">₹10,000 <span class="text-sm font-normal text-gray-500">/month</span></p>
+            <p class="text-sm text-black mb-4">For businesses aiming to build visibility & attract customers.</p>
+            <ul class="text-left text-sm sm:text-base space-y-2 mb-6 flex-grow">
+              <li class="flex items-start"><i class="fas fa-check-circle text-dark-red mt-1 mr-3"></i> 12 mixed-format posts/month</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-dark-red mt-1 mr-3"></i> 5 reels/month</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-dark-red mt-1 mr-3"></i> Interactive stories</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-dark-red mt-1 mr-3"></i> Full community management</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-dark-red mt-1 mr-3"></i> 3 extra festive posts</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-dark-red mt-1 mr-3"></i> Monthly report & strategy check-in</li>
+            </ul>
+            <button onclick="document.getElementById('slide8').scrollIntoView({behavior:'smooth'})" class="mt-auto w-full bg-dark-red text-white font-semibold py-2 rounded-md hover:bg-dark-red-dark transition-colors">Choose Plan</button>
+          </div>
+
+          <!-- Masala Magic -->
+          <div class="card p-6 flex flex-col text-center border-t-4 border-black h-full">
+            <h3 class="text-2xl font-bold text-black">Masala Magic</h3>
+            <p class="text-sm sm:text-base text-gray-500 italic mt-1">Your brand, garnished with buzz.</p>
+            <p class="text-3xl sm:text-4xl font-bold text-dark-red my-4">₹15,000 <span class="text-sm font-normal text-gray-500">/month</span></p>
+            <p class="text-sm text-black mb-4">For businesses seeking a high-impact social media presence.</p>
+            <ul class="text-left text-sm sm:text-base space-y-2 mb-6 flex-grow">
+              <li class="flex items-start"><i class="fas fa-check-circle text-black mt-1 mr-3"></i> 15 high-quality posts/month</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-black mt-1 mr-3"></i> 7 professionally edited reels</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-black mt-1 mr-3"></i> Engagement + promotional stories</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-black mt-1 mr-3"></i> 24/7 community management</li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-black mt-1 mr-3"></i> In-depth monthly report</li>
+            </ul>
+            <button onclick="document.getElementById('slide8').scrollIntoView({behavior:'smooth'})" class="mt-auto w-full bg-black text-white font-semibold py-2 rounded-md hover:bg-gray-800 transition-colors">Choose Plan</button>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-down text-black text-3xl" aria-hidden="true"><i class="fas fa-chevron-down"></i></div>
+    </section>
+
+    <!-- Slide 5: Our Process -->
+    <section id="slide5" class="slide bg-white">
+      <div class="max-w-6xl w-full px-4 text-center">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-8">Our Recipe for Success</h2>
+        <div class="relative">
+          <div class="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-transparent">
+            <svg width="100%" height="2" aria-hidden="true"><line x1="0" y1="1" x2="100%" y2="1" stroke="#7C0A02" stroke-width="4" stroke-dasharray="10 10"/></svg>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="flex flex-col items-center p-4">
+              <div class="bg-gradient-brand text-white w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold mb-3 border-4 border-white shadow-md">1</div>
+              <h3 class="text-lg font-bold text-dark-red">Create</h3>
+              <p class="text-sm text-black mt-2">Tailored content that resonates with your audience.</p>
+            </div>
+
+            <div class="flex flex-col items-center p-4">
+              <div class="bg-gradient-brand text-white w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold mb-3 border-4 border-white shadow-md">2</div>
+              <h3 class="text-lg font-bold text-dark-red">Connect</h3>
+              <p class="text-sm text-black mt-2">Build meaningful engagement with your community.</p>
+            </div>
+
+            <div class="flex flex-col items-center p-4">
+              <div class="bg-gradient-brand text-white w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold mb-3 border-4 border-white shadow-md">3</div>
+              <h3 class="text-lg font-bold text-dark-red">Celebrate</h3>
+              <p class="text-sm text-black mt-2">Highlight milestones, campaigns, and achievements.</p>
+            </div>
+
+            <div class="flex flex-col items-center p-4">
+              <div class="bg-gradient-brand text-white w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold mb-3 border-4 border-white shadow-md">4</div>
+              <h3 class="text-lg font-bold text-dark-red">Collaborate</h3>
+              <p class="text-sm text-black mt-2">Optimize & scale using data-driven strategies.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-down text-black text-3xl" aria-hidden="true"><i class="fas fa-chevron-down"></i></div>
+    </section>
+
+    <!-- Slide 6: Testimonials -->
+    <section id="slide6" class="slide bg-white-cream">
+      <div class="max-w-6xl w-full px-4 text-center">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-8">What Our Clients Say</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="card p-5 text-left">
+            <div class="flex items-center mb-4">
+              <img src="https://placehold.co/60x60/7C0A02/FFFFFF?text=ANJALI" alt="Anjali" class="rounded-full">
+              <div class="ml-3">
+                <h4 class="font-bold text-lg text-black">ANJALI</h4>
+                <p class="text-sm text-gray-500">Restaurant owner</p>
+              </div>
+            </div>
+            <p class="text-sm sm:text-base text-black italic">"Digital Tikka transformed our online presence. Our engagement has doubled, and we have new customers walking in every day mentioning our Instagram page. They really get the local vibe!"</p>
+          </div>
+
+          <div class="card p-5 text-left">
+            <div class="flex items-center mb-4">
+              <img src="https://placehold.co/60x60/121212/FFFFFF?text=ROHIT" alt="Rohit" class="rounded-full">
+              <div class="ml-3">
+                <h4 class="font-bold text-lg text-black">ROHIT</h4>
+                <p class="text-sm text-gray-500">Cafe owner</p>
+              </div>
+            </div>
+            <p class="text-sm sm:text-base text-black italic">"The Spice Mix package was perfect for us. The team is creative, professional, and the monthly reports make it easy to see the amazing results. Highly recommended for any small business."</p>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-down text-black text-3xl" aria-hidden="true"><i class="fas fa-chevron-down"></i></div>
+    </section>
+
+    <!-- Slide 7: Why Choose Us -->
+    <section id="slide7" class="slide bg-white">
+      <div class="max-w-6xl w-full px-4 text-center">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-8">Why Choose Digital Tikka?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="card p-5">
+            <div class="flex items-center gap-3">
+              <i class="fas fa-rupee-sign text-2xl text-dark-red"></i>
+              <h3 class="text-lg font-bold text-black">Affordable & Tailored</h3>
+            </div>
+            <p class="text-sm sm:text-base text-black mt-2">Affordable plans tailored to your specific business needs and budget.</p>
+          </div>
+
+          <div class="card p-5">
+            <div class="flex items-center gap-3">
+              <i class="fas fa-lightbulb text-2xl text-dark-red"></i>
+              <h3 class="text-lg font-bold text-black">Customized Strategies</h3>
+            </div>
+            <p class="text-sm sm:text-base text-black mt-2">We create customized strategies, not one-size-fits-all cookie-cutter templates.</p>
+          </div>
+
+          <div class="card p-5">
+            <div class="flex items-center gap-3">
+              <i class="fas fa-paint-brush text-2xl text-dark-red"></i>
+              <h3 class="text-lg font-bold text-black">Creative & Trend-Focused</h3>
+            </div>
+            <p class="text-sm sm:text-base text-black mt-2">Our team stays ahead of the curve, bringing fresh and creative ideas to your brand.</p>
+          </div>
+
+          <div class="card p-5">
+            <div class="flex items-center gap-3">
+              <i class="fas fa-file-alt text-2xl text-dark-red"></i>
+              <h3 class="text-lg font-bold text-black">Transparent & Measurable</h3>
+            </div>
+            <p class="text-sm sm:text-base text-black mt-2">We provide transparent reporting that shows your measurable growth and ROI.</p>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-down text-black text-3xl" aria-hidden="true"><i class="fas fa-chevron-down"></i></div>
+    </section>
+
+    <!-- Slide 8: Let's Connect -->
     <section id="slide8" class="slide bg-gradient-brand text-white">
-      <div class="text-center">
-        <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold">Let's Connect!</h2>
-        <p class="text-lg sm:text-xl mt-4 opacity-90 max-w-2xl mx-auto">Ready to add some masala to your media?</p>
-        <p class="text-lg sm:text-xl mt-4 opacity-90 max-w-2xl mx-auto">Let's talk about how we can help your business shine online.</p>
-        <div class="mt-8 sm:mt-12 space-y-4 sm:space-y-6 text-base sm:text-lg">
-          <div class="flex items-center justify-center gap-3 sm:gap-4">
+      <div class="max-w-4xl w-full px-4 text-center">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold">Let's Connect!</h2>
+        <p class="text-sm sm:text-base md:text-lg mt-3 opacity-90 max-w-2xl mx-auto">Ready to add some masala to your media? Let's talk about how we can help your business shine online.</p>
+
+        <div class="mt-8 sm:mt-10 space-y-3 sm:space-y-4 text-sm sm:text-base">
+          <div class="flex items-center justify-center gap-3">
             <i class="fas fa-phone"></i>
             <a href="tel:7439584310" class="hover:underline">7439584310</a>
           </div>
-          <div class="flex items-center justify-center gap-3 sm:gap-4">
+          <div class="flex items-center justify-center gap-3">
             <i class="fas fa-envelope"></i>
             <a href="mailto:connect.digitaltikka@gmail.com" class="hover:underline">connect.digitaltikka@gmail.com</a>
           </div>
-          <div class="flex items-center justify-center gap-3 sm:gap-4">
+          <div class="flex items-center justify-center gap-3">
             <i class="fab fa-instagram"></i>
-            <a href="https://www.instagram.com/digitaltikka.in/" target="_blank" class="hover:underline">@digitaltikka.in</a>
+            <a href="https://www.instagram.com/digitaltikka.in/" target="_blank" rel="noopener" class="hover:underline">@digitaltikka.in</a>
           </div>
         </div>
       </div>
     </section>
+
   </div>
 
+  <!-- Scripts -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const sections = document.querySelectorAll('.slide');
-      const dots = document.querySelectorAll('.dot');
-      const observerOptions = { root: document.querySelector('.slide-container'), threshold: 0.6 };
+    // 1) Fix mobile 100vh by setting --vh as 1% of viewport height
+    function setVh() {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    setVh();
+    window.addEventListener('resize', setVh);
+    window.addEventListener('orientationchange', setVh);
 
-      const observer = new IntersectionObserver(entries => {
+    // 2) IntersectionObserver to toggle active dot
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.querySelector('.slide-container');
+      const sections = Array.from(document.querySelectorAll('.slide'));
+      const dots = Array.from(document.querySelectorAll('.dot'));
+
+      // click dots to scroll
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', (e) => {
+          e.preventDefault();
+          sections[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      // Observe sections using the slide container as root
+      const observerOptions = {
+        root: container,
+        threshold: 0.56
+      };
+
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            const slideIndex = Array.from(sections).indexOf(entry.target);
-            dots.forEach(dot => dot.classList.remove('active'));
-            if (dots[slideIndex]) dots[slideIndex].classList.add('active');
+            const idx = sections.indexOf(entry.target);
+            dots.forEach(d => d.classList.remove('active'));
+            if (dots[idx]) dots[idx].classList.add('active');
           }
         });
       }, observerOptions);
 
-      sections.forEach(section => observer.observe(section));
-      dots.forEach((dot, index) => {
-        dot.addEventListener('click', e => {
+      sections.forEach(s => observer.observe(s));
+
+      // Optional: keyboard navigation (up/down)
+      container.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') {
           e.preventDefault();
-          sections[index].scrollIntoView({ behavior: 'smooth' });
-        });
+          const visibleIndex = dots.findIndex(d => d.classList.contains('active'));
+          const next = Math.min(visibleIndex + 1, sections.length - 1);
+          sections[next].scrollIntoView({ behavior: 'smooth' });
+        } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+          e.preventDefault();
+          const visibleIndex = dots.findIndex(d => d.classList.contains('active'));
+          const prev = Math.max(visibleIndex - 1, 0);
+          sections[prev].scrollIntoView({ behavior: 'smooth' });
+        }
       });
+
+      // Focusability for keyboard events
+      container.setAttribute('tabindex', '0');
     });
   </script>
 </body>
 </html>
+
