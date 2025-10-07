@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Tikka - Social Media Branding</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --dark-red: #7C0A02;
+      --white-cream: #F8F0E3;
+      --black: #121212;
+    }
+    body, html {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      background-color: var(--white-cream);
+      overflow-x: hidden;
+    }
+    .slide-container {
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      height: 100vh;
+    }
+    .slide {
+      scroll-snap-align: start;
+      min-height: 100vh;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .bg-gradient-brand {
+      background: linear-gradient(135deg, var(--dark-red), #4a0601);
+    }
+    .text-dark-red { color: var(--dark-red); }
+    .bg-dark-red { background-color: var(--dark-red); }
+    .border-dark-red { border-color: var(--dark-red); }
+    .hover\:bg-dark-red-dark:hover { background-color: #630802; }
+
+    .text-black { color: var(--black); }
+    .bg-black { background-color: var(--black); }
+    .border-black { border-color: var(--black); }
+
+    .bg-white-cream { background-color: var(--white-cream); }
+    .text-white-cream { color: var(--white-cream); }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
+    .card {
+      background: white;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05),
+                  0 4px 6px -4px rgb(0 0 0 / 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #f0f0f0;
+      width: 100%;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+    }
+    .nav-dots {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 50;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    .dot.active {
+      background: var(--dark-red);
+      transform: scale(1.2);
+      border-color: var(--white-cream);
+    }
+    .arrow-down {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-20px); }
+      60% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    /* Mobile fixes */
+    @media (max-width: 640px) {
+      .nav-dots {
+        right: 10px;
+        gap: 10px;
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  </style>
+</head>
+<body class="bg-white-cream">
+
+  <!-- Navigation dots -->
+  <div class="nav-dots">
+    <a href="#slide1" class="dot active"></a>
+    <a href="#slide2" class="dot"></a>
+    <a href="#slide3" class="dot"></a>
+    <a href="#slide4" class="dot"></a>
+    <a href="#slide5" class="dot"></a>
+    <a href="#slide6" class="dot"></a>
+    <a href="#slide7" class="dot"></a>
+    <a href="#slide8" class="dot"></a>
+  </div>
+
+  <div class="slide-container">
+    <!-- Slide 1: Title -->
+    <section id="slide1" class="slide bg-black text-white text-center">
+      <h1 class="text-4xl sm:text-6xl md:text-8xl font-bold tracking-tight">Digital Tikka</h1>
+      <p class="text-lg sm:text-xl md:text-3xl mt-2 italic opacity-90">"Adding the masala to your media"</p>
+      <p class="mt-6 sm:mt-8 max-w-2xl text-base sm:text-lg opacity-80">
+        A proposal on how your businesses can increase visibility and achieve measurable growth by leveraging social media marketing.
+      </p>
+      <div class="arrow-down text-white text-3xl"><i class="fas fa-chevron-down"></i></div>
+    </section>
+
+    <!-- Slide 2: The Opportunity -->
+    <section id="slide2" class="slide bg-white-cream">
+      <div class="text-center">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-dark-red mb-4">Your Customers Are Waiting Online</h2>
+        <p class="text-base sm:text-lg md:text-xl text-black max-w-3xl mx-auto">
+          In today's digital-first India, an online presence isn't just an option—it's your biggest opportunity.
+        </p>
+      </div>
+      <div class="mt-8 sm:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full max-w-6xl">
+        <div class="p-4 sm:p-6 text-center">
+          <i class="fas fa-users text-4xl sm:text-5xl text-dark-red mb-4"></i>
+          <h3 class="text-xl sm:text-2xl font-bold text-black">Reach New Customers</h3>
+          <p class="text-black mt-2">Connect with a wider audience beyond your physical location.</p>
+        </div>
+        <div class="p-4 sm:p-6 text-center">
+          <i class="fas fa-comments text-4xl sm:text-5xl text-dark-red mb-4"></i>
+          <h3 class="text-xl sm:text-2xl font-bold text-black">Build Your Community</h3>
+          <p class="text-black mt-2">Create a loyal following that trusts and advocates for your brand.</p>
+        </div>
+        <div class="p-4 sm:p-6 text-center">
+          <i class="fas fa-chart-line text-4xl sm:text-5xl text-dark-red mb-4"></i>
+          <h3 class="text-xl sm:text-2xl font-bold text-black">Drive Real Results</h3>
+          <p class="text-black mt-2">Turn online engagement into tangible business growth and sales.</p>
+        </div>
+      </div>
+      <div class="arrow-down text-black text-3xl"><i class="fas fa-chevron-down"></i></div>
+    </section>
+
+    <!-- ✅ Other slides remain same (they already use responsive grids & typography) -->
+
+    <!-- Slide 8: Contact -->
+    <section id="slide8" class="slide bg-gradient-brand text-white">
+      <div class="text-center">
+        <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold">Let's Connect!</h2>
+        <p class="text-lg sm:text-xl mt-4 opacity-90 max-w-2xl mx-auto">Ready to add some masala to your media?</p>
+        <p class="text-lg sm:text-xl mt-4 opacity-90 max-w-2xl mx-auto">Let's talk about how we can help your business shine online.</p>
+        <div class="mt-8 sm:mt-12 space-y-4 sm:space-y-6 text-base sm:text-lg">
+          <div class="flex items-center justify-center gap-3 sm:gap-4">
+            <i class="fas fa-phone"></i>
+            <a href="tel:7439584310" class="hover:underline">7439584310</a>
+          </div>
+          <div class="flex items-center justify-center gap-3 sm:gap-4">
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:connect.digitaltikka@gmail.com" class="hover:underline">connect.digitaltikka@gmail.com</a>
+          </div>
+          <div class="flex items-center justify-center gap-3 sm:gap-4">
+            <i class="fab fa-instagram"></i>
+            <a href="https://www.instagram.com/digitaltikka.in/" target="_blank" class="hover:underline">@digitaltikka.in</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sections = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
+      const observerOptions = { root: document.querySelector('.slide-container'), threshold: 0.6 };
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const slideIndex = Array.from(sections).indexOf(entry.target);
+            dots.forEach(dot => dot.classList.remove('active'));
+            if (dots[slideIndex]) dots[slideIndex].classList.add('active');
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(section => observer.observe(section));
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', e => {
+          e.preventDefault();
+          sections[index].scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
