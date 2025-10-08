@@ -1,165 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Digital Tikka - Social Media Branding</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<style>
-    :root {
-        --dark-red: #7C0A02;
-        --white-cream: #F8F0E3;
-        --black: #121212;
-    }
-
-    body {
-        font-family: 'Poppins', sans-serif;
-        scroll-behavior: smooth;
-        background-color: var(--white-cream);
-    }
-
-    .slide-container {
-        scroll-behavior: smooth;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Tikka - Social Media Branding</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
     }
 
     .slide {
-        min-height: 100vh; /* takes full screen if small, expands if bigger */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .bg-gradient-brand {
-        background: linear-gradient(135deg, var(--dark-red), #4a0601);
-    }
-
-    .text-dark-red { color: var(--dark-red); }
-    .bg-dark-red { background-color: var(--dark-red); }
-    .border-dark-red { border-color: var(--dark-red); }
-    .hover\:bg-dark-red-dark:hover { background-color: #630802; }
-
-    .text-black { color: var(--black); }
-    .bg-black { background-color: var(--black); }
-    .border-black { border-color: var(--black); }
-    
-    .bg-white-cream { background-color: var(--white-cream); }
-    .text-white-cream { color: var(--white-cream); }
-
-    h1, h2, h3 {
-        font-family: 'Playfair Display', serif;
-    }
-
-    .card {
-        background: white;
-        border-radius: 1.5rem;
-        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: 1px solid #f0f0f0;
-    }
-    .card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+      min-height: 100vh; /* fills screen if small, grows if more content */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
     }
 
     .nav-dots {
-        position: fixed;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        z-index: 50;
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 50;
     }
-    .dot {
-        width: 12px;
-        height: 12px;
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 50%;
-        transition: all 0.3s ease;
-        border: 2px solid transparent;
+
+    .nav-dots a {
+      width: 12px;
+      height: 12px;
+      background: #ccc;
+      border-radius: 50%;
+      display: block;
+      transition: background 0.3s;
     }
-    .dot.active {
-        background: var(--dark-red);
-        transform: scale(1.2);
-        border-color: var(--white-cream);
+
+    .nav-dots a.active,
+    .nav-dots a:hover {
+      background: #000;
     }
 
     .arrow-down {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        animation: bounce 2s infinite;
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      cursor: pointer;
+      animation: bounce 1.5s infinite;
     }
 
-    @keyframes bounce { 
-        0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); } 
-        40% { transform: translateX(-50%) translateY(-20px); } 
-        60% { transform: translateX(-50%) translateY(-10px); } 
+    @keyframes bounce {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, -10px); }
     }
-</style>
+  </style>
 </head>
-<body class="bg-white-cream">
+<body class="bg-white text-gray-800">
 
-<!-- ✅ your content stays same, only CSS changed -->
-<div class="nav-dots">
-    <a href="#slide1" class="dot active"></a> 
-    <a href="#slide2" class="dot"></a> 
-    <a href="#slide3" class="dot"></a> 
-    <a href="#slide4" class="dot"></a> 
-    <a href="#slide5" class="dot"></a> 
-    <a href="#slide6" class="dot"></a> 
-    <a href="#slide7" class="dot"></a> 
-    <a href="#slide8" class="dot"></a> 
-    <a href="#slide9" class="dot"></a>
-</div>
+  <!-- Navigation Dots -->
+  <div class="nav-dots">
+    <a href="#slide1" class="active"></a>
+    <a href="#slide2"></a>
+    <a href="#slide3"></a>
+    <a href="#slide4"></a>
+  </div>
 
-<div class="slide-container">
-    <!-- 🔽 keep all your slides (1 to 8) same as before -->
-    <!-- I didn't change content, only CSS, so it won’t cut on mobile -->
-</div>
+  <!-- Slide 1 -->
+  <section id="slide1" class="slide bg-cashmere">
+    <h1 class="text-4xl font-bold mb-4">Welcome to Digital Tikka</h1>
+    <p class="text-lg text-center max-w-2xl">
+      Adding the masala to your media – making your brand stand out online.
+    </p>
+    <div class="arrow-down"><a href="#slide2">↓</a></div>
+  </section>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const sections = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
+  <!-- Slide 2 -->
+  <section id="slide2" class="slide bg-clamshell">
+    <h2 class="text-3xl font-semibold mb-4">Our Mission</h2>
+    <p class="text-center max-w-2xl">
+      To help brands grow their digital presence with creative content, strategy, and measurable results.
+    </p>
+    <div class="arrow-down"><a href="#slide3">↓</a></div>
+  </section>
 
-        const observerOptions = { 
-            root: null, 
-            rootMargin: '0px', 
-            threshold: 0.6 
-        };
+  <!-- Slide 3 -->
+  <section id="slide3" class="slide bg-puce">
+    <h2 class="text-3xl font-semibold mb-4">Our Services</h2>
+    <ul class="list-disc text-left max-w-xl">
+      <li>Social Media Strategy</li>
+      <li>Brand Content Creation</li>
+      <li>Performance Marketing</li>
+      <li>Community Engagement</li>
+    </ul>
+    <div class="arrow-down"><a href="#slide4">↓</a></div>
+  </section>
 
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const slideIndex = Array.from(sections).indexOf(entry.target);
-                    dots.forEach(dot => dot.classList.remove('active'));
-                    if (dots[slideIndex]) dots[slideIndex].classList.add('active');
-                }
-            });
-        }, observerOptions);
+  <!-- Slide 4 -->
+  <section id="slide4" class="slide bg-dusty-grey">
+    <h2 class="text-3xl font-semibold mb-4">Let’s Work Together</h2>
+    <p class="text-center max-w-2xl mb-6">
+      Ready to spice up your brand’s digital journey? Get in touch today.
+    </p>
+    <a href="mailto:info@digitaltikka.com" 
+       class="px-6 py-3 bg-black text-white rounded-lg shadow-lg">
+       Contact Us
+    </a>
+  </section>
 
-        sections.forEach(section => observer.observe(section));
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', (e) => {
-                e.preventDefault();
-                sections[index].scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-    });
-</script>
 </body>
 </html>
-
